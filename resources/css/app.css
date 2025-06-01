@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn-highlight {
+    font-weight: bold;
+    color: white !important;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.btn-aktif {
+    background-color: #28a745; /* hijau */
+}
+
+.btn-nonaktif {
+    background-color: #dc3545; /* merah */
+}
