@@ -19,6 +19,28 @@
 
     {{-- Tailwind CSS & JS (via Vite) --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    {{-- Custom CSS for Print --}}
+    <style>
+        @media print {
+            .no-print,
+            nav,
+            header,
+            footer {
+                display: none !important;
+            }
+
+            body {
+                background: white !important;
+                color: black !important;
+            }
+
+            main {
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+        }
+    </style>
 </head>
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">

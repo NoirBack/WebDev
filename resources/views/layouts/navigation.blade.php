@@ -17,21 +17,39 @@
                     @endif
                 </div>
 
-                <!-- Navigation Links -->
+                <!-- Menu Utama (Desktop) -->
                 <div class="hidden sm:flex space-x-6">
                     @if (Auth::user()->role === 'dokter')
                         <x-nav-link :href="route('dokter.dashboard')" :active="request()->routeIs('dokter.dashboard')">
                             {{ __('Dashboard') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('dokter.jadwal-periksa.index')" :active="request()->routeIs('dokter.jadwal-periksa.index')">
+                        <x-nav-link :href="route('dokter.jadwal-periksa.index')" :active="request()->routeIs('dokter.jadwal-periksa.*')">
                             {{ __('Jadwal Periksa') }}
                         </x-nav-link>
                         <x-nav-link :href="route('dokter.obat.index')" :active="request()->routeIs('dokter.obat.*')">
                             {{ __('Obat') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('dokter.memeriksa.index')" :active="request()->routeIs('dokter.memeriksa.*')">
+                            {{ __('Memeriksa') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('dokter.profil.edit')" :active="request()->routeIs('dokter.profil.edit')">
+                            {{ __('Profil') }}
+                        </x-nav-link>
                     @elseif (Auth::user()->role === 'pasien')
                         <x-nav-link :href="route('pasien.dashboard')" :active="request()->routeIs('pasien.dashboard')">
                             {{ __('Dashboard') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('pasien.janji-periksa.index')" :active="request()->routeIs('pasien.janji-periksa.*')">
+                            {{ __('Janji Periksa') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('pasien.riwayat-periksa.index')" :active="request()->routeIs('pasien.riwayat-periksa.*')">
+                            {{ __('Riwayat Periksa') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('pasien.profil.edit')" :active="request()->routeIs('pasien.profil.edit')">
+                            {{ __('Profil') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('pasien.riwayat-periksa.cetak')" :active="request()->routeIs('pasien.riwayat-periksa.cetak')">
+                            {{ __('Cetak Bukti') }}
                         </x-nav-link>
                     @endif
                 </div>
@@ -53,15 +71,25 @@
 
                     <x-slot name="content">
                         <!-- Info Akun -->
-                        <div class="block px-4 py-2 text-xs text-gray-400">
+                        <div class="block px-4 py-2 text-xs text-gray-400 bg-gray-800">
                             {{ ucfirst(Auth::user()->role) }} - {{ Auth::user()->email }}
                         </div>
+
+                        @if (Auth::user()->role === 'dokter')
+                            <x-dropdown-link :href="route('dokter.profil.edit')" class="text-white hover:bg-gray-700">
+                                {{ __('Edit Profil') }}
+                            </x-dropdown-link>
+                        @elseif (Auth::user()->role === 'pasien')
+                            <x-dropdown-link :href="route('pasien.profil.edit')" class="text-white hover:bg-gray-700">
+                                {{ __('Edit Profil') }}
+                            </x-dropdown-link>
+                        @endif
 
                         <!-- Logout -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <x-dropdown-link :href="route('logout')"
-                                             onclick="event.preventDefault(); this.closest('form').submit();">
+                            <x-dropdown-link :href="route('logout')" class="text-white hover:bg-gray-700"
+                                onclick="event.preventDefault(); this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
@@ -78,20 +106,38 @@
                 <x-responsive-nav-link :href="route('dokter.dashboard')" :active="request()->routeIs('dokter.dashboard')">
                     {{ __('Dashboard') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('dokter.jadwal-periksa.index')" :active="request()->routeIs('dokter.jadwal-periksa.index')">
+                <x-responsive-nav-link :href="route('dokter.jadwal-periksa.index')" :active="request()->routeIs('dokter.jadwal-periksa.*')">
                     {{ __('Jadwal Periksa') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('dokter.obat.index')" :active="request()->routeIs('dokter.obat.*')">
                     {{ __('Obat') }}
                 </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('dokter.memeriksa.index')" :active="request()->routeIs('dokter.memeriksa.*')">
+                    {{ __('Memeriksa') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('dokter.profil.edit')" :active="request()->routeIs('dokter.profil.edit')">
+                    {{ __('Profil') }}
+                </x-responsive-nav-link>
             @elseif (Auth::user()->role === 'pasien')
                 <x-responsive-nav-link :href="route('pasien.dashboard')" :active="request()->routeIs('pasien.dashboard')">
                     {{ __('Dashboard') }}
                 </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('pasien.janji-periksa.index')" :active="request()->routeIs('pasien.janji-periksa.*')">
+                    {{ __('Janji Periksa') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('pasien.riwayat-periksa.index')" :active="request()->routeIs('pasien.riwayat-periksa.*')">
+                    {{ __('Riwayat Periksa') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('pasien.profil.edit')" :active="request()->routeIs('pasien.profil.edit')">
+                    {{ __('Profil') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('pasien.riwayat-periksa.cetak')" :active="request()->routeIs('pasien.riwayat-periksa.cetak')">
+                    {{ __('Cetak Bukti') }}
+                </x-responsive-nav-link>
             @endif
         </div>
 
-        <!-- Responsive Dropdown -->
+        <!-- Responsive User Info + Logout -->
         <div class="pt-4 pb-1 border-t border-gray-700">
             <div class="px-4">
                 <div class="text-base font-medium text-white">{{ Auth::user()->nama }}</div>
@@ -101,7 +147,7 @@
             <form method="POST" action="{{ route('logout') }}" class="mt-3 space-y-1">
                 @csrf
                 <x-responsive-nav-link :href="route('logout')"
-                                       onclick="event.preventDefault(); this.closest('form').submit();">
+                    onclick="event.preventDefault(); this.closest('form').submit();">
                     {{ __('Log Out') }}
                 </x-responsive-nav-link>
             </form>
